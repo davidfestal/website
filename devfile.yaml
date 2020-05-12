@@ -1,0 +1,27 @@
+metadata:
+  name: devfile-website
+projects:
+  - name: documentation
+    source:
+      location: 'https://github.com/davidfestal/website.git'
+      type: git
+      branch: master
+components:
+  - mountSources: true
+    endpoints:
+      - name: nodejs
+        port: 8181
+    memoryLimit: 1024Mi
+    type: dockerimage
+    image: 'quay.io/dfestal/devfile-website:latest'
+    alias: nodejs
+apiVersion: 1.0.0
+commands:
+  - name: Build Serve and Watch
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/documentation'
+        type: exec
+        command: >-
+          bootprint json-schema -d -f bootprint/config.js schemas/devfile.json
+          target/
+        component: nodejs
