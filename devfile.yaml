@@ -23,5 +23,5 @@ commands:
         type: exec
         command: >-
           bootprint json-schema -d -f bootprint/config.js schemas/devfile.json
-          target/
+          docs/
         component: nodejs
